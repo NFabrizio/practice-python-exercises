@@ -74,6 +74,21 @@ class BinarySearchTree():
 
         return result
 
+    def node_insert(self, root=None, insertion=None):
+        if not insertion:
+            return root
+
+        if not root:
+            return Node(insertion)
+
+        if root.value > insertion:
+            root.left = self.node_insert(root.left, insertion)
+        elif root.value < insertion:
+            root.right = self.node_insert(root.right, insertion)
+
+        return root
+
+
     def node_delete(self, root=None, target=None):
         if not root or not target:
             return Node(None)
@@ -202,6 +217,11 @@ matched = sample_tree.node_search(root2, 1)
 print(f'matched val for target 1 = {matched.value}')
 matched = sample_tree.node_search(root2, 18)
 print(f'matched val for target 18 = {matched.value}')
+
+bigger_tree = sample_tree.node_insert(root2, 9)
+bigger_tree = sample_tree.node_insert(root2, 7)
+bigger_tree = sample_tree.node_insert(root2, -1)
+print(f'Preorder after insertions: {sample_tree.list_preorder(bigger_tree)}')
 
 new_tree_root = sample_tree.node_delete(root2, 1)
 print(f'Preorder after deleting node with value of 1: {sample_tree.list_preorder(new_tree_root)}')
